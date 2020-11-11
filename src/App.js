@@ -6,8 +6,7 @@ import Drawer from "./components/Drawer/Drawer";
 
 function App() {
 	return (
-		// <Header/>
-		<Drawer/>
+		<Header/>
 	);
 }
 

@@ -11,6 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import DrawerComponent from "../Drawer/Drawer";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -80,9 +81,11 @@ const Header = () => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [drawerOpening, setDrawerOpening] = React.useState(false)
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const isDrawerOpen = Boolean(drawerOpening);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -100,6 +103,10 @@ const Header = () => {
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+
+     const openDrawer = () => {
+         setDrawerOpening(true);
+     }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -151,6 +158,7 @@ const Header = () => {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={openDrawer}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -198,6 +206,12 @@ const Header = () => {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+            {drawerOpening ?
+                <DrawerComponent
+                open={isDrawerOpen}/> :
+                null
+            }
+
         </div>
     );
 }
