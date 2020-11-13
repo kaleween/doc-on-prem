@@ -13,6 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Header from "../Header/Header";
 
 const drawerWidth = 240;
 
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
+        // padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -58,12 +59,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DrawerComponent = (props) => {
+const DrawerComponent = () => {
     const classes = useStyles();
     const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
 
     const handleDrawerClose = () => {
-        props.setOpen(false);
+        setOpen(false);
     };
 
     return (
@@ -73,7 +79,7 @@ const DrawerComponent = (props) => {
                 className={classes.drawer}
                 variant="persistent"
                 anchor="left"
-                open={props.open}
+                open={open}
                 classes={{
                     paper: classes.drawerPaper,
                 }}
@@ -116,9 +122,13 @@ const DrawerComponent = (props) => {
             </Drawer>
             <main
                 className={clsx(classes.content, {
-                    [classes.contentShift]: props.open,
+                    [classes.contentShift]: open,
                 })}
             >
+                <Header
+                open={open}
+                setOpen={(o) => setOpen(o)}/>
+
                 <div className={classes.drawerHeader} />
             </main>
         </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Header from "./components/Header/Header";
+import DrawerComponent from "./components/Drawer/Drawer";
 
 function App() {
 	return (
-		<Header/>
+		<DrawerComponent/>
 	);
 }
 

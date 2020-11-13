@@ -77,11 +77,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = () => {
+const Header = (props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [drawerOpening, setDrawerOpening] = React.useState(false)
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -104,7 +103,7 @@ const Header = () => {
     };
 
      const openDrawer = () => {
-         setDrawerOpening(true);
+         props.setOpen(true);
      }
 
     const menuId = 'primary-search-account-menu';
@@ -152,15 +151,17 @@ const Header = () => {
         <div className={classes.grow}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
+                    {   props.open === false ?
+                        <IconButton
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
                         onClick={openDrawer}
                     >
-                        <MenuIcon />
-                    </IconButton>
+                        <MenuIcon/>
+                    </IconButton> : null
+                    }
                     <Typography className={classes.title} variant="h6" noWrap>
                         Material-UI
                     </Typography>
@@ -205,12 +206,6 @@ const Header = () => {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-            {drawerOpening ?
-                <DrawerComponent
-                open={drawerOpening}
-                setOpen={(o) => setDrawerOpening(o)}/> :
-                null
-            }
 
         </div>
     );
