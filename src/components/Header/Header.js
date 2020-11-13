@@ -85,7 +85,6 @@ const Header = () => {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const isDrawerOpen = Boolean(drawerOpening);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);

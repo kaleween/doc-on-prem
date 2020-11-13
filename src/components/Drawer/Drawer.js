@@ -20,26 +20,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    hide: {
-        display: 'none',
-    },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
@@ -54,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
+    },
+    drawerFooter: {
+        position: 'absolute',
+        bottom: 0,
     },
     content: {
         flexGrow: 1,
@@ -94,13 +78,14 @@ const DrawerComponent = (props) => {
                 }}
             >
                 <div className={classes.drawerHeader}>
+                    Fichiers
                     <IconButton onClick={(handleDrawerClose)}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </div>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Tous les fichiers', 'Favoris'].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
@@ -109,13 +94,24 @@ const DrawerComponent = (props) => {
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    {["Faire une liste des différents dossier de l'utilisateur"].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
                 </List>
+                <div className={classes.drawerFooter}>
+                    <List>
+                        {["Fichiers supprimés","Paramètres"].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
+
             </Drawer>
             <main
                 className={clsx(classes.content, {
