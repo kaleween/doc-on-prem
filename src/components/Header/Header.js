@@ -208,7 +208,8 @@ const Header = () => {
             {renderMenu}
             {drawerOpening ?
                 <DrawerComponent
-                open={isDrawerOpen}/> :
+                open={drawerOpening}
+                setOpen={(o) => setDrawerOpening(o)}/> :
                 null
             }
 

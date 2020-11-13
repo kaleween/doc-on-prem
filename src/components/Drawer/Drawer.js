@@ -76,10 +76,9 @@ const useStyles = makeStyles((theme) => ({
 const DrawerComponent = (props) => {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(props.open);
 
     const handleDrawerClose = () => {
-        setOpen(false);
+        props.setOpen(false);
     };
 
     return (
@@ -89,13 +88,13 @@ const DrawerComponent = (props) => {
                 className={classes.drawer}
                 variant="persistent"
                 anchor="left"
-                open={open}
+                open={props.open}
                 classes={{
                     paper: classes.drawerPaper,
                 }}
             >
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
+                    <IconButton onClick={(handleDrawerClose)}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </div>
@@ -120,7 +119,7 @@ const DrawerComponent = (props) => {
             </Drawer>
             <main
                 className={clsx(classes.content, {
-                    [classes.contentShift]: open,
+                    [classes.contentShift]: props.open,
                 })}
             >
                 <div className={classes.drawerHeader} />
