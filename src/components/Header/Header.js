@@ -11,7 +11,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import DrawerComponent from "../Drawer/Drawer";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -79,27 +78,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const isMenuOpen = Boolean(props.anchorEl);
+    const isMobileMenuOpen = Boolean(props.mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
+        props.setAnchorEl(event.currentTarget);
     };
 
     const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
+        props.setMobileMoreAnchorEl(null);
     };
 
     const handleMenuClose = () => {
-        setAnchorEl(null);
+        props.setAnchorEl(null);
         handleMobileMenuClose();
     };
 
     const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
+        props.setMobileMoreAnchorEl(event.currentTarget);
     };
 
      const openDrawer = () => {
@@ -109,7 +106,7 @@ const Header = (props) => {
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
-            anchorEl={anchorEl}
+            anchorEl={props.anchorEl}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             id={menuId}
             keepMounted
@@ -125,7 +122,7 @@ const Header = (props) => {
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
-            anchorEl={mobileMoreAnchorEl}
+            anchorEl={props.mobileMoreAnchorEl}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             id={mobileMenuId}
             keepMounted
