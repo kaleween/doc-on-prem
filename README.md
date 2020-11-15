@@ -1,3 +1,6 @@
+**_This is application is like nextcloud / owncloud
+It's main purpose is to be a project to train me on react_**
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import {fade, makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,7 +11,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import DrawerComponent from "../Drawer/Drawer";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -60,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: '20ch',
+            width: '30ch',
         },
     },
     sectionDesktop: {
@@ -77,45 +76,41 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = () => {
+const Header = (props) => {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [drawerOpening, setDrawerOpening] = React.useState(false)
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const isDrawerOpen = Boolean(drawerOpening);
+    const isMenuOpen = Boolean(props.anchorEl);
+    const isMobileMenuOpen = Boolean(props.mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
+        props.setAnchorEl(event.currentTarget);
     };
 
     const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
+        props.setMobileMoreAnchorEl(null);
     };
 
     const handleMenuClose = () => {
-        setAnchorEl(null);
+        props.setAnchorEl(null);
         handleMobileMenuClose();
     };
 
     const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
+        props.setMobileMoreAnchorEl(event.currentTarget);
     };
 
-     const openDrawer = () => {
-         setDrawerOpening(true);
-     }
+    const openDrawer = () => {
+        props.setOpen(true);
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorEl={props.anchorEl}
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             id={menuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{vertical: 'top', horizontal: 'right'}}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
@@ -127,11 +122,11 @@ const Header = () => {
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorEl={props.mobileMoreAnchorEl}
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             id={mobileMenuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{vertical: 'top', horizontal: 'right'}}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
@@ -142,7 +137,7 @@ const Header = () => {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircle/>
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -153,21 +148,23 @@ const Header = () => {
         <div className={classes.grow}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={openDrawer}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                    {props.open === false ?
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={openDrawer}
+                        >
+                            <MenuIcon/>
+                        </IconButton> : null
+                    }
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
+                        Doc-On-Prem
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+                            <SearchIcon/>
                         </div>
                         <InputBase
                             placeholder="Search…"
@@ -175,10 +172,10 @@ const Header = () => {
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
-                            inputProps={{ 'aria-label': 'search' }}
+                            inputProps={{'aria-label': 'search'}}
                         />
                     </div>
-                    <div className={classes.grow} />
+                    <div className={classes.grow}/>
                     <div className={classes.sectionDesktop}>
                         <IconButton
                             edge="end"
@@ -188,7 +185,7 @@ const Header = () => {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                            <AccountCircle/>
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
@@ -199,19 +196,13 @@ const Header = () => {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <MoreIcon/>
                         </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-            {drawerOpening ?
-                <DrawerComponent
-                open={isDrawerOpen}/> :
-                null
-            }
-
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
@@ -11,41 +11,30 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-
-const drawerWidth = 240;
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FolderIcon from '@material-ui/icons/Folder';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import Header from "../Header/Header";
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    hide: {
-        display: 'none',
-    },
     drawer: {
-        width: drawerWidth,
+        width: 200,
+        [theme.breakpoints.up('md')]: {
+            width: 300
+        },
         flexShrink: 0,
     },
     drawerPaper: {
-        width: drawerWidth,
+        width: 200,
+        [theme.breakpoints.up('md')]: {
+            width: 300
+        },
     },
     drawerHeader: {
         display: 'flex',
@@ -54,15 +43,26 @@ const useStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
+        fontSize: '20px',
+    },
+    drawerFooter: {
+        width: 200 - 1,
+        [theme.breakpoints.up('md')]: {
+            width: 300 - 1
+        },
+        position: 'absolute',
+        bottom: 0,
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        marginLeft: -drawerWidth,
+        marginLeft: -200,
+        [theme.breakpoints.up('md')]: {
+            marginLeft: -300
+        },
     },
     contentShift: {
         transition: theme.transitions.create('margin', {
@@ -73,10 +73,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DrawerComponent = (props) => {
+const DrawerComponent = () => {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(props.open);
+    const [open, setOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -84,7 +86,7 @@ const DrawerComponent = (props) => {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <Drawer
                 className={classes.drawer}
                 variant="persistent"
@@ -93,37 +95,64 @@ const DrawerComponent = (props) => {
                 classes={{
                     paper: classes.drawerPaper,
                 }}
+                ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                }}
             >
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    <Typography variant={'h6'}>
+                        Fichiers
+                    </Typography>
+                    <IconButton onClick={(handleDrawerClose)}>
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Tous les fichiers', 'Favoris'].map((text, index) => (
                         <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemIcon>{index % 2 === 0 ? <FolderOpenIcon/> : <FavoriteIcon/>}</ListItemIcon>
+                            <ListItemText primary={text}/>
                         </ListItem>
                     ))}
                 </List>
-                <Divider />
+                <Divider/>
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    {["Faire une liste des différents dossier de l'utilisateur"].map((text) => (
                         <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemIcon> <FolderIcon/> </ListItemIcon>
+                            <ListItemText primary={text}/>
                         </ListItem>
                     ))}
                 </List>
+                <div className={classes.drawerFooter}>
+                    <Divider/>
+                    <List>
+                        {["Fichiers supprimés", "Paramètres"].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemIcon>{index % 2 === 0 ? <DeleteOutlineIcon/> : <SettingsIcon/>}</ListItemIcon>
+                                <ListItemText primary={text}/>
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
+
             </Drawer>
             <main
                 className={clsx(classes.content, {
                     [classes.contentShift]: open,
                 })}
             >
-                <div className={classes.drawerHeader} />
+                <Header
+                    open={open}
+                    setOpen={(o) => setOpen(o)}
+                    anchorEl={anchorEl}
+                    setAnchorEl={(a) => setAnchorEl(a)}
+                    mobileMoreAnchorEl={mobileMoreAnchorEl}
+                    setMobileMoreAnchorEl={(m) => setMobileMoreAnchorEl(m)}
+                />
+
+                <div className={classes.drawerHeader}/>
             </main>
         </div>
     );
