@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import {fade, makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: '20ch',
+            width: '30ch',
         },
     },
     sectionDesktop: {
@@ -99,18 +99,18 @@ const Header = (props) => {
         props.setMobileMoreAnchorEl(event.currentTarget);
     };
 
-     const openDrawer = () => {
-         props.setOpen(true);
-     }
+    const openDrawer = () => {
+        props.setOpen(true);
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
             anchorEl={props.anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             id={menuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{vertical: 'top', horizontal: 'right'}}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
@@ -123,10 +123,10 @@ const Header = (props) => {
     const renderMobileMenu = (
         <Menu
             anchorEl={props.mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             id={mobileMenuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{vertical: 'top', horizontal: 'right'}}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
@@ -137,7 +137,7 @@ const Header = (props) => {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircle/>
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -148,23 +148,23 @@ const Header = (props) => {
         <div className={classes.grow}>
             <AppBar position="static">
                 <Toolbar>
-                    {   props.open === false ?
+                    {props.open === false ?
                         <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={openDrawer}
-                    >
-                        <MenuIcon/>
-                    </IconButton> : null
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={openDrawer}
+                        >
+                            <MenuIcon/>
+                        </IconButton> : null
                     }
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
+                        Doc-On-Prem
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+                            <SearchIcon/>
                         </div>
                         <InputBase
                             placeholder="Search…"
@@ -172,10 +172,10 @@ const Header = (props) => {
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
-                            inputProps={{ 'aria-label': 'search' }}
+                            inputProps={{'aria-label': 'search'}}
                         />
                     </div>
-                    <div className={classes.grow} />
+                    <div className={classes.grow}/>
                     <div className={classes.sectionDesktop}>
                         <IconButton
                             edge="end"
@@ -185,7 +185,7 @@ const Header = (props) => {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                            <AccountCircle/>
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
@@ -196,14 +196,13 @@ const Header = (props) => {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <MoreIcon/>
                         </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-
         </div>
     );
 }

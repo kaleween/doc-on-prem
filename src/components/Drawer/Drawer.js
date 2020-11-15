@@ -14,23 +14,27 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import MailIcon from '@material-ui/icons/Mail';
 import FolderIcon from '@material-ui/icons/Folder';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import Header from "../Header/Header";
-
-let drawerWidth = 240;
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     drawer: {
-        width: drawerWidth,
+        width: 200,
+        [theme.breakpoints.up('md')]: {
+            width: 300
+        },
         flexShrink: 0,
     },
     drawerPaper: {
-        width: drawerWidth,
+        width: 200,
+        [theme.breakpoints.up('md')]: {
+            width: 300
+        },
     },
     drawerHeader: {
         display: 'flex',
@@ -42,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '20px',
     },
     drawerFooter: {
+        width: 200 - 1,
+        [theme.breakpoints.up('md')]: {
+            width: 300 - 1
+        },
         position: 'absolute',
         bottom: 0,
     },
@@ -51,7 +59,10 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        marginLeft: -drawerWidth,
+        marginLeft: -200,
+        [theme.breakpoints.up('md')]: {
+            marginLeft: -300
+        },
     },
     contentShift: {
         transition: theme.transitions.create('margin', {
@@ -84,9 +95,14 @@ const DrawerComponent = () => {
                 classes={{
                     paper: classes.drawerPaper,
                 }}
+                ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                }}
             >
                 <div className={classes.drawerHeader}>
-                    Fichiers
+                    <Typography variant={'h6'}>
+                        Fichiers
+                    </Typography>
                     <IconButton onClick={(handleDrawerClose)}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                     </IconButton>
@@ -102,7 +118,7 @@ const DrawerComponent = () => {
                 </List>
                 <Divider/>
                 <List>
-                    {["Faire une liste des différents dossier de l'utilisateur"].map((text, index) => (
+                    {["Faire une liste des différents dossier de l'utilisateur"].map((text) => (
                         <ListItem button key={text}>
                             <ListItemIcon> <FolderIcon/> </ListItemIcon>
                             <ListItemText primary={text}/>
