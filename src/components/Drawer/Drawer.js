@@ -18,6 +18,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import Header from "../Header/Header";
 import {Typography} from "@material-ui/core";
+import ListFiles from "../ListFiles/ListFiles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -151,8 +152,7 @@ const DrawerComponent = () => {
                     mobileMoreAnchorEl={mobileMoreAnchorEl}
                     setMobileMoreAnchorEl={(m) => setMobileMoreAnchorEl(m)}
                 />
-
-                <div className={classes.drawerHeader}/>
+                <ListFiles/>
             </main>
         </div>
     );
