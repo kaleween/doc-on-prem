@@ -23,6 +23,7 @@ import ListFiles from "../ListFiles/ListFiles";
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        overflowY: 'hidden'
     },
     drawer: {
         width: 200,
