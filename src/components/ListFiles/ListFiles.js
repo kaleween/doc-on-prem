@@ -143,10 +143,9 @@ const ListFiles = () => {
                                             <TableCell key={column.id} align={column.align}>
                                                 {
                                                     column.id === 'delete' ?
-                                                        <IconButton onClick={null}> <DeleteIcon/> </IconButton> :
+                                                        <IconButton onClick={deleteRow()}> <DeleteIcon/> </IconButton> :
                                                         null
                                                 }
-
                                                 {column.format && typeof value === 'number' ? column.format(value) : value}
                                             </TableCell>
                                         );
@@ -168,6 +167,11 @@ const ListFiles = () => {
             />
         </Paper>
     );
+}
+
+function deleteRow(id) {
+    console.log(id);
+    // TODO LATER
 }
 
 export default ListFiles;

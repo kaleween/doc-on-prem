@@ -11,6 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -206,5 +207,14 @@ const Header = (props) => {
         </div>
     );
 }
+
+Header.propTypes = {
+    anchorEl: PropTypes.bool,
+    mobileMoreAnchorEl: PropTypes.bool,
+    setAnchorEl: PropTypes.bool,
+    setMobileMoreAnchorEl: PropTypes.bool,
+    setOpen: PropTypes.bool,
+    open: PropTypes.bool
+};
 
 export default Header;

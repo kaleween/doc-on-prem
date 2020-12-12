@@ -3,9 +3,9 @@ import './App.css';
 import DrawerComponent from "./components/Drawer/Drawer";
 
 function App() {
-	return (
-		<DrawerComponent/>
-	);
+    return (
+        <DrawerComponent/>
+    );
 }
 
 export default App;
